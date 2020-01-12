@@ -1,0 +1,45 @@
+	.text
+f:
+	pushq %rbp
+	movq %rsp, %rbp
+	addq $-32, %rsp
+	movq %rbx, -32(%rbp)
+	movq %r12, -24(%rbp)
+	movq %rdi, %r12
+	movq %rsi, -16(%rbp)
+	movq %rdx, -8(%rbp)
+	movq %rcx, %rbx
+	movq %r12, %r10
+	cmpq $0, %r10
+	movq $0, %r10
+	sete %r10b
+	testq %r10, %r10
+	jz L8
+	movq $10, %rax
+L1:
+	movq -32(%rbp), %rbx
+	movq -24(%rbp), %r12
+	movq %rbp, %rsp
+	popq %rbp
+	ret
+L8:
+	movq %r12, %rdi
+	call putchar
+	movq -16(%rbp), %rdi
+	movq -8(%rbp), %rsi
+	movq %rbx, %rdx
+	movq %r12, %rcx
+	call f
+	jmp L1
+	.globl	main
+main:
+	movq $65, %rdi
+	movq $66, %rsi
+	movq $67, %rdx
+	movq $0, %rcx
+	call f
+	movq %rax, %rdi
+	call putchar
+	movq $0, %rax
+	ret
+	.data
