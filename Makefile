@@ -1,12 +1,10 @@
-test: main.native mini-c
-	./mini-c --debug test.c
+mini-c: main.native
+	ln -fs main.native $@
 
 main.native: *.ml*
 	ocamlbuild $@
 
-mini-c:
-	ln -s main.native $@
-
 clean:
 	ocamlbuild -clean
 	rm -f mini-c
+

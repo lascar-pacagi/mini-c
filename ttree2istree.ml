@@ -257,7 +257,7 @@ let ttree_cmp_to_istree_cmp = function
 
   | _ -> assert false
 
-open Pervasives
+open Stdlib
 
 let rec expr (e : Ttree.expr) : expr =
   match e.Ttree.expr_node with

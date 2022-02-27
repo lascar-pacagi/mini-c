@@ -112,7 +112,7 @@ and _menhir_state =
   open Parsing
   open Ptree
 
-  (* Construction d'expressions et d'instructions localisées *)
+  (* Construction d'expressions et d'instructions localisï¿½es *)
 
   let loc () = symbol_start_pos (), symbol_end_pos ()
   let dummy_loc = Lexing.dummy_pos, Lexing.dummy_pos
@@ -978,7 +978,7 @@ and _menhir_goto_list_decl_var_ : _menhir_env -> 'ttv_tail -> _menhir_state -> '
 
 and _menhir_fail : unit -> 'a =
   fun () ->
-    Printf.fprintf Pervasives.stderr "Internal failure -- please contact the parser generator's developers.\n%!";
+    Printf.fprintf Stdlib.stderr "Internal failure -- please contact the parser generator's developers.\n%!";
     assert false
 
 and _menhir_goto_lvalue : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_lvalue -> 'ttv_return =

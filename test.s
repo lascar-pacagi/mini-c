@@ -1,30 +1,40 @@
 	.text
+fact_rec:
+	pushq %rbp
+	movq %rsp, %rbp
+	addq $-8, %rsp
+	movq %r12, -8(%rbp)
+	movq %rdi, %r12
+	cmpq $1, %r12
+	jle L7
+	movq %r12, %rdi
+	addq $-1, %rdi
+	call fact_rec
+	imulq %rax, %r12
+L1:
+	movq %r12, %rax
+	movq -8(%rbp), %r12
+	movq %rbp, %rsp
+	popq %rbp
+	ret
+L7:
+	movq $1, %r12
+	jmp L1
 	.globl	main
 main:
-	movq %rbx, %r8
-	movq $1, %r10
-	movq %r10, %rax
-	movq $42, %r9
-	addq %r9, %rax
-	movq %r10, %r9
-	movq %rax, %r10
-	addq %r10, %r9
-	movq $2, %r10
-	imulq %r9, %r10
-	movq $0, %r9
-	cmpq %r9, %r10
-	jl L16
-L2:
+	movq $10, %rdi
+	call fact_rec
+	cmpq $3628800, %rax
 	movq $0, %rax
-	movq %r8, %rbx
+	sete %al
+	testq %rax, %rax
+	jz L13
+	movq $49, %rdi
+	call putchar
+L13:
+	movq $10, %rdi
+	call putchar
+	movq $0, %rax
 	ret
-L16:
-	movq $12, %r9
-	movq $2, %rax
-	addq %rax, %r10
-	movq %r9, %rax
-	addq %r10, %rax
-	movq %r9, %r10
-	addq %r10, %rax
-	jmp L2
+	jmp L13
 	.data

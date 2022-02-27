@@ -26,7 +26,10 @@ let unop st op r =
   let v = match op with
     | Maddi n -> Int64.add (Int64.of_int32 n) v
     | Msetei n -> bool (Int64.of_int32 n = v)
-    | Msetnei n -> bool (Int64.of_int32 n <> v) in
+    | Msetnei n -> bool (Int64.of_int32 n <> v) 
+    | Msetlei n -> bool (Int64.of_int32 n <= v)
+    | Msetgi n  -> bool (Int64.of_int32 n > v)
+  in
   set st r v
 
 let binop st op r1 r2 =
